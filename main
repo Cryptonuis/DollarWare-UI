@@ -76,9 +76,7 @@ do
 					ControlGradient2 = Color3.fromRGB(200, 200, 200);
 				}
 			elseif (theme == 'custom') then 
-				theme = {
-					(custom_theme)
-				}
+				theme = custom_theme
 			elseif (theme == 'orange') then      -- orange
 				theme = {
 					Primary = Color3.fromRGB(244, 148, 22);
