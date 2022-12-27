@@ -6576,31 +6576,7 @@ do
 				new.instances = instances
 				return new
 			end
-			
-			elemClasses.section.addPlayerList = function(self, settings, callback) 
-				if (not typeof(settings) == 'table') then
-					return error('expected type table for settings', 2) 
-				end
-
-				local s_title = settings.text or 'nil'
-				local s_color = settings.color or Color3.fromRGB(255, 255, 255)
-
-				local picker = picker:new()
-				picker.section = self 
-				picker.name = s_title
-				table.insert(self.controls, picker)
-
-				picker.instances.label.Text = s_title
-				picker:setColor(s_color)
-
-				picker.instances.controlFrame.Parent = self.instances.controlMenu
-
-
-				if (typeof(callback) == 'function') then
-					picker:bindToEvent('onNewColor', callback) 
-				end
-				return picker
-			end
+	
 
 			elemClasses.section.addColorPicker = function(self, settings, callback) 
 				if (not typeof(settings) == 'table') then
