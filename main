@@ -40,7 +40,6 @@ do
 	if (#args > 0 and typeof(args[1]) == 'table') then
 		local settings = args[1]
 		theme = settings.theme
-		custom_theme = settings.custom_theme
 		rounding = settings.rounding
 		if (settings.smoothDragging == nil) then 
 			settings.smoothDragging = true 
@@ -75,8 +74,6 @@ do
 					ControlGradient1 = Color3.fromRGB(255, 255, 255);
 					ControlGradient2 = Color3.fromRGB(200, 200, 200);
 				}
-			elseif (theme == 'custom') then 
-				theme = custom_theme
 			elseif (theme == 'orange') then      -- orange
 				theme = {
 					Primary = Color3.fromRGB(244, 148, 22);
@@ -5245,7 +5242,6 @@ do
 
 	-- Unfinished
 	-- DROPDOWN OPTION
-    --[[
     do 
         local dropdownOption = {} do 
             dropdownOption.__index = dropdownOption 
@@ -5501,11 +5497,10 @@ do
         end
         -- add class
         elemClasses.dropdownOption = dropdownOption
-    end]]
+    end
 
 	-- Unfinished
 	-- DROPDOWN
-    --[[
     do 
         local dropdown = {} do 
             dropdown.__index = dropdown 
@@ -5833,7 +5828,7 @@ do
         -- add class
         elemClasses.dropdown = dropdown
     end    
-    ]]
+   
 
 	-- SLIDER
 	do 
@@ -6580,6 +6575,31 @@ do
 
 				new.instances = instances
 				return new
+			end
+			
+			elemClasses.section.addPlayerList = function(self, settings, callback) 
+				if (not typeof(settings) == 'table') then
+					return error('expected type table for settings', 2) 
+				end
+
+				local s_title = settings.text or 'nil'
+				local s_color = settings.color or Color3.fromRGB(255, 255, 255)
+
+				local picker = picker:new()
+				picker.section = self 
+				picker.name = s_title
+				table.insert(self.controls, picker)
+
+				picker.instances.label.Text = s_title
+				picker:setColor(s_color)
+
+				picker.instances.controlFrame.Parent = self.instances.controlMenu
+
+
+				if (typeof(callback) == 'function') then
+					picker:bindToEvent('onNewColor', callback) 
+				end
+				return picker
 			end
 
 			elemClasses.section.addColorPicker = function(self, settings, callback) 
